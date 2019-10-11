@@ -1,50 +1,16 @@
 version: "3.1"
 services:
-{% if monitoring_cadvisor_enabled %}
-  cadvisor:
-    image: google/cadvisor:{{ monitoring_cadvisor_image_version }}
-    container_name: {{ monitoring_cadvisor_container_name }}
-    restart: always
-    ports:
-      #- "127.0.0.1:8000:8080"
-      - "{{ monitoring_cadvisor_localhost_uri }}:8080"
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    healthcheck:
-      test: 'curl {{ monitoring_cadvisor_localhost_uri }}/healtz'
-      interval: 2s
-      timeout: 20s
-{% endif %}
-{% if monitoring_nodeexporter_enabled %}
+{% if monitoring_nexporter_enabled %}
   nexporter:
     image: quay.io/prometheus/node-exporter:{{ monitoring_nexporter_image_version }}
-    container_name: {{ monitoring_nexporter_conatiner_name }}
+    container_name: {{ monitoring_nexporter_container_name }}
     restart: always
     ports:
-      - "{{ monitoring_nexporter_localhost_uri}}":9100
+      - {{ monitoring_nexporter_localhost_uri}}:9100
     volumes:
       - "/:/host:ro,rslave"
     healthcheck:
       test: 'curl {{ monitoring_nexporter_localhost_uri }}/metrics'
       interval: 2s
       timeout: 20s
-{% endif %}
-{% if monitoring_promtail_enabled %}
-  nexporter:
-    image: quay.io/prometheus/node-exporter:{{ monitoring_nexporter_image_version }}
-    container_name: {{ monitoring_nexporter_conatiner_name }}
-    restart: always
-    ports:
-      - "{{ monitoring_nexporter_localhost_uri}}":9100
-    volumes:
-      - /home/{{ opencell_user }}/promtail-config.yml:/etc/promtail/config.yaml
-      - /home/{{ opencell_user }}/opencell-log:/var/log/:ro
-    healthcheck:
-      test: 'curl {{ monitoring_nexporter_localhost_uri }}/metrics'
-      interval: 2s
-      timeout: 20s
-    command: -config.file=/etc/promtail/config.yaml
 {% endif %}

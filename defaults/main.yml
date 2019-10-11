@@ -3,23 +3,10 @@
 # General
 monitoring_user_name: monitor
 monitoring_user_home_dir: "/home/{{ monitoring_user_name }}"
-monitoring_user_working_dir: "{{ monitoring_user_home_dir }}"
-
-# CAdvisor
-monitoring_cadvisor_enabled: true
-monitoring_cadvisor_localhost_uri: 127.0.0.1:8000
-monitoring_cadvisor_container_name: cadvisor
-monitoring_cadvisor_image_version: latest
+monitoring_working_dir: "{{ monitoring_user_home_dir }}"
 
 # NodeExporter
 monitoring_nexporter_enabled: true
 monitoring_nexporter_localhost_uri: 127.0.0.1:9100
 monitoring_nexporter_container_name: nexporter
 monitoring_nexporter_image_version: latest
-
-# Promtail
-monitoring_promtail_enabled: true
-monitoring_promtail_localhost_uri: 127.0.0.1:9999
-monitoring_promtail_container_name: promtail
-monitoring_promtail_image_version: latest
-
