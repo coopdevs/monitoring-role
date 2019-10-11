@@ -2,9 +2,19 @@
 
 - name: Install dependency packages
   become: yes
-  apt:
-    pkg:
-      - gpg
+  block:
+    - name: APT dependencies
+      apt:
+        pkg:
+          - gpg
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: APK dependencies
+      apk:
+        name: gnupg
+      when: ansible_facts['os_family'] == "Alpine"
+
+
 
 - name: User to execute the manage docker on behalf of monitoring
   # This can have security issues when docker manages other containers too
@@ -27,6 +37,7 @@
   file:
     state: directory
     path: "{{ monitoring_working_dir }}"
+    owner: "{{ monitoring_user_name }}"
 
 - name: Render template for the docker-compose file.
   template:
@@ -35,6 +46,8 @@
 
 - name: Bring up the containers
   command: docker-compose up -d --build # noqa: 304
+  become: yes
+  become_user: "{{ monitoring_user_name }}"
   args:
     chdir: "{{ monitoring_working_dir }}"
   changed_when: false

@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: monitoring-role
+      vars:
+        - monitoring_nexporter_localhost_uri: 0.0.0.0:9100
