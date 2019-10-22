@@ -6,7 +6,7 @@ services:
     container_name: {{ monitoring_nexporter_container_name }}
     restart: always
     ports:
-      - {{ monitoring_nexporter_localhost_uri}}:9100
+      - {{ monitoring_nexporter_localhost_uri}}
     volumes:
       - "/:/host:ro,rslave"
     healthcheck:
