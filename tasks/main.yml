@@ -45,7 +45,7 @@
     dest: "{{ monitoring_working_dir }}/docker-compose.yml"
 
 - name: Bring up the containers
-  command: docker-compose up -d --build # noqa: 304
+  command: docker-compose up -d # noqa: 304
   become: yes
   become_user: "{{ monitoring_user_name }}"
   args:
