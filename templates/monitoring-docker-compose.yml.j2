@@ -6,11 +6,11 @@ services:
     container_name: {{ monitoring_nexporter_container_name }}
     restart: always
     ports:
-      - {{ monitoring_nexporter_localhost_uri}}
+      - {{ monitoring_nexporter_docker_bind }}
     volumes:
       - "/:/host:ro,rslave"
     healthcheck:
-      test: 'curl {{ monitoring_nexporter_localhost_uri }}/metrics'
+      test: 'curl {{ monitoring_nexporter_docker_bind }}/metrics'
       interval: 2s
       timeout: 20s
 {% endif %}

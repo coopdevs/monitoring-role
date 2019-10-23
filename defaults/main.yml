@@ -7,6 +7,6 @@ monitoring_working_dir: "{{ monitoring_user_home_dir }}"
 
 # NodeExporter
 monitoring_nexporter_enabled: true
-monitoring_nexporter_localhost_uri: 127.0.0.1:9100
+monitoring_nexporter_docker_bind: 127.0.0.1:9100:9100
 monitoring_nexporter_container_name: nexporter
 monitoring_nexporter_image_version: latest
