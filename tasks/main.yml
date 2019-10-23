@@ -2,19 +2,9 @@
 
 - name: Install dependency packages
   become: yes
-  block:
-    - name: APT dependencies
-      apt:
-        pkg:
-          - gpg
-      when: ansible_facts['os_family'] == "Debian"
-
-    - name: APK dependencies
-      apk:
-        name: gnupg
-      when: ansible_facts['os_family'] == "Alpine"
-
-
+  apt:
+    pkg:
+      - gpg
 
 - name: User to execute the manage docker on behalf of monitoring
   # This can have security issues when docker manages other containers too
