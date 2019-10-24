@@ -1,0 +1,43 @@
+---
+
+- name: Install dependency packages
+  become: yes
+  apt:
+    pkg:
+      - gpg
+
+# Adding this user to docker group can have security issues when docker
+# manages other containers too, but it's better than running docker from root.
+- name: User to execute the manage docker on behalf of monitoring
+  become: yes
+  user:
+    name: "{{ monitoring_user_name }}"
+    state: present
+    shell: /bin/bash
+    home: "{{ monitoring_user_home_dir }}"
+
+- name: Install docker
+  include_role:
+    name: geerlingguy.docker
+  vars:
+    docker_users:
+      - "{{ monitoring_user_name }}"
+
+- name: Working directory
+  file:
+    state: directory
+    path: "{{ monitoring_working_dir }}"
+    owner: "{{ monitoring_user_name }}"
+
+- name: Render template for the docker-compose file.
+  template:
+    src: monitoring-docker-compose.yml.j2
+    dest: "{{ monitoring_working_dir }}/docker-compose.yml"
+
+- name: Bring up the containers
+  command: docker-compose up -d # noqa: 304
+  become: yes
+  become_user: "{{ monitoring_user_name }}"
+  args:
+    chdir: "{{ monitoring_working_dir }}"
+  changed_when: false
