@@ -6,12 +6,13 @@
     pkg:
       - gpg
 
+
+# Adding this user to docker group can have security issues when docker
+# manages other containers too, but it's better than running docker from root.
 - name: User to execute the manage docker on behalf of monitoring
-  # This can have security issues when docker manages other containers too
   become: yes
   user:
     name: "{{ monitoring_user_name }}"
-    #    groups: docker
     state: present
     shell: /bin/bash
     home: "{{ monitoring_user_home_dir }}"
