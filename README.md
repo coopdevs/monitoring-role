@@ -1,4 +1,4 @@
-# Monitoring Role
+# Monitoring Role ![Ansible Role](https://img.shields.io/ansible/role/44192)
 
 An Ansible role for maintaining monitoring tools of the Grafana ecosystem.
 
