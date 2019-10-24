@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Coopdevs
+  description: Install Prometheus exporters to monitor your project instances
+
+  # Choose a valid license ID from https://spdx.org - some suggested licenses:
+  license: GPL-3.0-or-later
+
+  min_ansible_version: 2.8
+
+  # Provide a list of supported platforms, and for each platform a list of versions.
+  platforms:
+  - name: Ubuntu
+    versions:
+    - bionic
+
+  # List tags for your role here, one per line.
+  galaxy_tags: []
+
+  # Duplicated in molecule/default/requirements.yml beacuse of molecule inhabilities
+  # List your role dependencies here, one per line.
+  dependencies:
+    - geerlingguy.docker
