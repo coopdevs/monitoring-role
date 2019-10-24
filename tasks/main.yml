@@ -6,6 +6,7 @@
     pkg:
       - gpg
 
+
 # Adding this user to docker group can have security issues when docker
 # manages other containers too, but it's better than running docker from root.
 - name: User to execute the manage docker on behalf of monitoring
