@@ -1,4 +1,4 @@
-# Monitoring Role ![Ansible Role](https://img.shields.io/ansible/role/44192)
+# Monitoring Role [![Ansible Role](https://img.shields.io/ansible/role/44192)](https://galaxy.ansible.com/coopdevs/monitoring_role)
 
 An Ansible role for maintaining monitoring tools of the Grafana ecosystem.
 
@@ -31,5 +31,8 @@ monitoring_nexporter_image_version: latest
 
 ## Security
 
-This role exposes through an HTTP server lots of data that can be potentially exploited. By default, it listens to a loopback adress, not public from the internet. However, you probably want an external Prometheus server to fetch this data periodically. To this end, and to protect the data, some sort of authentication from the Prometheus server against the host is needed.
+This role exposes through an HTTP server lots of data that can be potentially exploited. By default, it listens to a loopback adress, not public from the internet.
+
+However, you probably want an external Prometheus server to fetch this data periodically. To this end, and to protect the data, some sort of authentication from the Prometheus server against the host is needed.
+
 One approach is to leave the exporters binding to localhost and then set up a reverse proxy before them with Basic Authentication, using Nginx. The management of this set up and of the keys implied are out of the scope of this role.
