@@ -1,0 +1,19 @@
+  - job_name: backup
+    pipeline_stages:
+      - regex:
+          # 2019-12-23 15:43:01.471210237+00:00 | INFO | Compress assets data
+          expression: '^(?P<datetime>[^|]+) \| (?P<loglevel>[^|]+) \| (?P<message>.*)$'
+      - labels:
+          loglevel:
+      - timestamp:
+          source: datetime
+          format: '2006-01-02 15:04:05.999999999-07:00'
+
+    static_configs:
+      - targets:
+        - localhost
+        labels:
+          job: backup
+          host: {{ inventory_hostname }}
+          __path__: /var/log/cron.d/restic-stdout.log
+

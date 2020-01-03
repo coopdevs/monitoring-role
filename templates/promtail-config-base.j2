@@ -1,0 +1,14 @@
+server:
+  http_listen_port: 0
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+client:
+  url: https://{{ grafana_cloud_user }}:{{ grafana_cloud_key }}@{{ grafana_cloud_hostname }}/api/prom/push
+
+scrape_configs:
+{% for template in monitoring_promtail_enabled_templates %}
+{% include "promtail-config-apps/" + template %}
+{% endfor %}

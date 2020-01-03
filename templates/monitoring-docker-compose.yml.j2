@@ -14,3 +14,20 @@ services:
       interval: 2s
       timeout: 20s
 {% endif %}
+{% if monitoring_promtail_enabled %}
+  nexporter:
+    image: quay.io/prometheus/node-exporter:{{ monitoring_nexporter_image_version }}
+    container_name: {{ monitoring_nexporter_conatiner_name }}
+    restart: always
+    ports:
+      - {{ monitoring_promtail_docker_bind}}
+    volumes:
+    {% for volume in monitoring_promtail_docker_volumes %}
+      - {{ volume }}
+    {% endfor %}
+    healthcheck:
+      test: 'curl {{ monitoring_nexporter_localhost_uri }}/metrics'
+      interval: 2s
+      timeout: 20s
+    command: -config.file=/etc/promtail/config.yaml
+{% endif %}
