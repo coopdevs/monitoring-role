@@ -35,6 +35,17 @@
     src: monitoring-docker-compose.yml.j2
     dest: "{{ monitoring_working_dir }}/docker-compose.yml"
 
+- name: Promtail config directory
+  file:
+    state: directory
+    path: "{{ monitoring_promtail_config_dir }}"
+    owner: "{{ monitoring_user_name }}"
+
+- name: Render promtail configuration template.
+  template:
+    src: promtail-config-base.j2
+    dest: "{{ monitoring_promtail_config_dir }}/{{ monitoring_promtail_config_filename }}"
+
 - name: Bring up the containers
   command: docker-compose up -d # noqa: 304
   become: yes

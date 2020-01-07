@@ -28,3 +28,5 @@ monitoring_promtail_docker_volumes:
 monitoring_promtail_enabled_templates:
   #  - "syslog.j2"
   - "backups-role.j2"
+monitoring_promtail_config_dir: "/etc/promtail"
+monitoring_promtail_config_filename: "config.yml"
