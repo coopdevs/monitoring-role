@@ -10,7 +10,7 @@ services:
     volumes:
       - "/:/host:ro,rslave"
     healthcheck:
-      test: 'curl {{ monitoring_nexporter_docker_bind }}/metrics'
+      test: 'curl {{ monitoring_nexporter_url }}/metrics'
       interval: 2s
       timeout: 20s
 {% endif %}
@@ -26,7 +26,7 @@ services:
       - {{ volume }}
     {% endfor %}
     healthcheck:
-      test: 'curl {{ monitoring_nexporter_localhost_uri }}/metrics'
+      test: 'curl https://{{ monitoring_promtail_host }}:{{ monitoring_promtail_port }}/ready'
       interval: 2s
       timeout: 20s
     command: -config.file=/etc/promtail/config.yaml

@@ -1,5 +1,6 @@
 server:
-  http_listen_port: 0
+  http_listen_address: {{ monitoring_promtail_host }}
+  http_listen_port: {{ monitoring_promtail_port }}
   grpc_listen_port: 0
 
 positions:
