@@ -21,7 +21,7 @@ monitoring_promtail_docker_bind: "{{ monitoring_promtail_host }}:{{ monitoring_p
 monitoring_promtail_container_name: promtail
 monitoring_promtail_image_version: latest
 monitoring_promtail_system_log_path: "/var/log"
-monitoring_promtail_backups_log_path: "/var/log/cron.d/restic_stdout.log"
+monitoring_promtail_backups_log_path: "{{ backups_role_cron_stdout_file | default('/var/log/cron.d/restic-stdout.log') }}"
 monitoring_promtail_docker_volumes:
   # - "{{ monitoring_promtail_system_log_path ~ ':' ~ monitoring_promtail_system_log_path ~ ':ro' }}"
   - "{{ monitoring_promtail_backups_log_path ~ ':' ~ monitoring_promtail_backups_log_path ~ ':ro' }}"

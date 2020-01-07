@@ -19,5 +19,4 @@
         labels:
           job: backup
           host: {{ inventory_hostname }}
-          __path__: /var/log/cron.d/restic-stdout.log
-
+          __path__: {{ monitoring_promtail_backups_log_path }}
