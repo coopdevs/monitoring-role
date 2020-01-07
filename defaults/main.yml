@@ -23,8 +23,8 @@ monitoring_promtail_image_version: latest
 monitoring_promtail_system_log_path: "/var/log"
 monitoring_promtail_backups_log_path: "{{ backups_role_cron_stdout_file | default('/var/log/cron.d/restic-stdout.log') }}"
 monitoring_promtail_docker_volumes:
-  # - "{{ monitoring_promtail_system_log_path ~ ':' ~ monitoring_promtail_system_log_path ~ ':ro' }}"
-  - "{{ monitoring_promtail_backups_log_path ~ ':' ~ monitoring_promtail_backups_log_path ~ ':ro' }}"
+  # - "{{ monitoring_promtail_system_log_path }}:{{ monitoring_promtail_system_log_path  }}:ro"
+  - "{{ monitoring_promtail_backups_log_path }}:{{ monitoring_promtail_backups_log_path  }}:ro"
 monitoring_promtail_enabled_templates:
   #  - "syslog.j2"
   - "backups-role.j2"
