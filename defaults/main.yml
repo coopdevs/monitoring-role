@@ -9,7 +9,7 @@ monitoring_working_dir: "{{ monitoring_user_home_dir }}"
 monitoring_nexporter_enabled: true
 monitoring_nexporter_host: 127.0.0.1
 monitoring_nexporter_port: 9100
-monitoring_nexporter_docker_bind: "{{ monitoring_nexporter_host }}:{{ monitoring_nexporter_port }}:9100"
+monitoring_nexporter_docker_bind: "{{ monitoring_nexporter_host }}:{{ monitoring_nexporter_port }}:{{ monitoring_nexporter_port }}"
 monitoring_nexporter_container_name: nexporter
 monitoring_nexporter_image_version: latest
 
@@ -17,7 +17,7 @@ monitoring_nexporter_image_version: latest
 monitoring_promtail_enabled: true
 monitoring_promtail_host: 127.0.0.1
 monitoring_promtail_port: 9080
-monitoring_promtail_docker_bind: "{{ monitoring_promtail_host }}:{{ monitoring_promtail_port }}:9080"
+monitoring_promtail_docker_bind: "{{ monitoring_promtail_host }}:{{ monitoring_promtail_port }}:{{ monitoring_promtail_port }}"
 monitoring_promtail_container_name: promtail
 monitoring_promtail_image_version: latest
 monitoring_promtail_system_log_path: "/var/log"
