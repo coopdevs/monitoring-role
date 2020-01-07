@@ -15,7 +15,7 @@ services:
       timeout: 20s
 {% endif %}
 {% if monitoring_promtail_enabled %}
-  nexporter:
+  promtail:
     image: quay.io/prometheus/node-exporter:{{ monitoring_nexporter_image_version }}
     container_name: {{ monitoring_nexporter_conatiner_name }}
     restart: always
