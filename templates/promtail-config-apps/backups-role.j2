@@ -18,5 +18,5 @@
         - localhost
         labels:
           job: backup
-          host: {{ inventory_hostname }}
+          instance: {{ inventory_hostname }}
           __path__: {{ monitoring_promtail_backups_log_path }}
