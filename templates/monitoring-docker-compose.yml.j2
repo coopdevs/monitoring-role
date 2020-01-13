@@ -9,8 +9,26 @@ services:
       - {{ monitoring_nexporter_docker_bind }}
     volumes:
       - "/:/host:ro,rslave"
-    healthcheck:
-      test: 'curl {{ monitoring_nexporter_docker_bind }}/metrics'
-      interval: 2s
-      timeout: 20s
+#    healthcheck:
+#      test: 'curl http://{{ monitoring_nexporter_host }}:{{ monitoring_nexporter_port }}/metrics'
+#      interval: 2s
+#      timeout: 20s
+{% endif %}
+{% if monitoring_promtail_enabled %}
+  promtail:
+    image: grafana/promtail:{{ monitoring_promtail_image_version }}
+    container_name: {{ monitoring_promtail_container_name }}
+    restart: always
+    ports:
+      - {{ monitoring_promtail_docker_bind}}
+    volumes:
+      - {{ monitoring_promtail_config_dir }}:{{ monitoring_promtail_config_dir }}
+{% for volume in monitoring_promtail_docker_volumes %}
+      - {{ volume }}
+{% endfor %}
+#    healthcheck:
+#      test: 'curl http://{{ monitoring_promtail_host }}:{{ monitoring_promtail_port }}/ready'
+#      interval: 2s
+#      timeout: 20s
+    command: -config.file={{ monitoring_promtail_config_dir }}/{{ monitoring_promtail_config_filename }}
 {% endif %}

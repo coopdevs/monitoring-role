@@ -1,0 +1,22 @@
+  - job_name: backup
+    pipeline_stages:
+      # Regex to match against each line added to __path__ file or files
+      - regex:
+          # Sample log line with expected format:
+          # 2019-12-23 15:43:01.471210237+00:00 | INFO | Compress assets data
+          expression: '^(?P<datetime>[^|]+) \| (?P<loglevel>[^|]+) \| (?P<message>.*)$'
+      # Labels to export to Loki and to be indexed there.
+      - labels:
+          loglevel:
+      # Source label with datetime data and its golang's layout to parse it
+      - timestamp:
+          source: datetime
+          format: '2006-01-02 15:04:05.999999999-07:00'
+
+    static_configs:
+      - targets:
+        - localhost
+        labels:
+          job: backup
+          instance: {{ inventory_hostname }}
+          __path__: {{ monitoring_promtail_backups_log_path }}
