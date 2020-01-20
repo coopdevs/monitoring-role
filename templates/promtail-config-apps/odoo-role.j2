@@ -24,5 +24,5 @@
         labels:
           job: odoo
           instance: {{ inventory_hostname }}
-          __path__: {{ monitoring_promtail_odoo_log_path }}
+          __path__: {{ monitoring_promtail_modules_available["odoo"]["log_path"] }}
 

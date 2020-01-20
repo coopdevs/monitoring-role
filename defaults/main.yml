@@ -20,16 +20,18 @@ monitoring_promtail_port: 9080
 monitoring_promtail_docker_bind: "{{ monitoring_promtail_host }}:{{ monitoring_promtail_port }}:{{ monitoring_promtail_port }}"
 monitoring_promtail_container_name: promtail
 monitoring_promtail_image_version: latest
-monitoring_promtail_system_log_path: "/var/log/*.log"
-# Use backups-role var if available.
-monitoring_promtail_backups_log_path: "{{ backups_role_cron_stdout_file | default('/var/log/cron.d/restic-stdout.log') }}"
-# Use odoo-role var if available. Convert from dir to filename pattern with wildcard.
-monitoring_promtail_odoo_log_path: "{{ odoo_role_odoo_log_path | default('/var/log/odoo') }}/*"
-monitoring_promtail_docker_volumes:
-  # - "{{ monitoring_promtail_system_log_path }}:{{ monitoring_promtail_system_log_path  }}:ro"
-  - "{{ monitoring_promtail_backups_log_path }}:{{ monitoring_promtail_backups_log_path  }}:ro"
-monitoring_promtail_enabled_templates:
-  #  - "syslog.j2"
-  - "backups-role.j2"
+monitoring_promtail_modules_enabled:
+  - "backups"
+  - "odoo"
+monitoring_promtail_modules_available:
+  backups:
+    # Use backups-role var if available.
+    log_path: "{{ backups_role_cron_stdout_file | default('/var/log/cron.d/restic-stdout.log') }}"
+    template: "backups-role.j2"
+  odoo:
+    # Use odoo-role var if available.
+    log_path: "{{ odoo_role_odoo_log_path | default('/var/log/odoo') }}/odoo.log"
+    template: "odoo-role.j2"
+
 monitoring_promtail_config_dir: "/etc/promtail"
 monitoring_promtail_config_filename: "config.yml"

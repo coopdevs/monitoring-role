@@ -19,4 +19,4 @@
         labels:
           job: backup
           instance: {{ inventory_hostname }}
-          __path__: {{ monitoring_promtail_backups_log_path }}
+          __path__: {{ monitoring_promtail_modules_available["backups"]["log_path"] }}

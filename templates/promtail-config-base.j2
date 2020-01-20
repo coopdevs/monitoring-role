@@ -10,6 +10,9 @@ client:
   url: https://{{ grafana_cloud_user }}:{{ grafana_cloud_key }}@{{ grafana_cloud_hostname }}/api/prom/push
 
 scrape_configs:
-{% for template in monitoring_promtail_enabled_templates %}
+{% for module in monitoring_promtail_modules_enabled %}
+{% set template = monitoring_promtail_modules_available[module]["template"] %}
 {% include "promtail-config-apps/" + template %}
+
+
 {% endfor %}
