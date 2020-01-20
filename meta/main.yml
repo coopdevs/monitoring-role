@@ -1,6 +1,6 @@
 galaxy_info:
   author: Coopdevs
-  description: Install Prometheus exporters to monitor your project instances
+  description: Install Prometheus and Loki exporters to monitor your project instances
 
   # Choose a valid license ID from https://spdx.org - some suggested licenses:
   license: GPL-3.0-or-later
@@ -14,9 +14,14 @@ galaxy_info:
     - bionic
 
   # List tags for your role here, one per line.
-  galaxy_tags: []
+  galaxy_tags:
+    - monitoring
+    - prometheus
+    - loki
+    - node_exporter
+    - promtail
 
-  # Duplicated in molecule/default/requirements.yml beacuse of molecule inhabilities
-  # List your role dependencies here, one per line.
-  dependencies:
-    - geerlingguy.docker
+# Duplicated in molecule/default/requirements.yml beacuse of molecule inhabilities
+# List your role dependencies here, one per line.
+dependencies:
+  - geerlingguy.docker
