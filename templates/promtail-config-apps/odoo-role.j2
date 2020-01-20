@@ -17,6 +17,9 @@
           format: '2006-01-02 15:04:05'
           # Odoo logs always in UTC timezone
           location: 'Etc/UTC'
+      - match:
+          selector: '{loglevel=""}'
+          action: drop
 
     static_configs:
       - targets:
