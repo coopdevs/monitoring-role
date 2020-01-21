@@ -6,7 +6,7 @@ Uses docker to install Prometheus and Loki exporters:
 * `node_exporter`: prometheus exporter that collects general data about the state of a host.
 * `promtail`: the main exporter for Loki, a logs server similar to Prometheus and compatible with Grafana.
 
-This role supports some applications with their default login:
+This role supports some applications with their default logging format:
 * [Odoo12](https://github.com/coopdevs/odoo-role)
 * [Coopdevs backups](https://github.com/coopdevs/backups-role/)
 
