@@ -23,8 +23,9 @@ services:
       - {{ monitoring_promtail_docker_bind}}
     volumes:
       - {{ monitoring_promtail_config_dir }}:{{ monitoring_promtail_config_dir }}
-{% for volume in monitoring_promtail_docker_volumes %}
-      - {{ volume }}
+{% for module in monitoring_promtail_modules_enabled %}
+{% set log_path = monitoring_promtail_modules_available[module]["log_path"] %}
+      - {{ log_path }}:{{ log_path }}:ro
 {% endfor %}
 #    healthcheck:
 #      test: 'curl http://{{ monitoring_promtail_host }}:{{ monitoring_promtail_port }}/ready'

@@ -1,0 +1,31 @@
+  - job_name: odoo
+    pipeline_stages:
+      # Regex to match against each line added to __path__ file or files
+      - regex:
+          # Sample log lines with expected format:
+          # 2020-01-14 13:53:09,582 25306 DEBUG odoo odoo.addons.base.models.ir_cron: 0.005s (cron Post process payment transactions, server action 481 with uid 1)
+          # 2020-01-14 13:53:09,585 25306 INFO odoo odoo.addons.base.models.ir_cron: Job `Post process payment transactions` done.
+          # 2020-01-14 13:53:22,578 25306 DEBUG ? odoo.service.server: cron0 polling for jobs
+          # We exclude milliseconds on purpose because golang's bug https://github.com/golang/go/issues/6189 and odoo's inability to customize logging
+          expression: '^(?P<datetime>[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[^ ]+ (?P<process_id>[0-9]+) (?P<loglevel>[a-zA-Z]+) (?P<user>[^ ]+) (?P<module>[^:]+): (?P<message>.*)$'
+      # Labels to export to Loki and to be indexed there.
+      - labels:
+          loglevel:
+      # Source label with datetime data and its golang's layout to parse it
+      - timestamp:
+          source: datetime
+          format: '2006-01-02 15:04:05'
+          # Odoo logs always in UTC timezone
+          location: 'Etc/UTC'
+      - match:
+          selector: '{loglevel=""}'
+          action: drop
+
+    static_configs:
+      - targets:
+        - localhost
+        labels:
+          job: odoo
+          instance: {{ inventory_hostname }}
+          __path__: {{ monitoring_promtail_modules_available["odoo"]["log_path"] }}
+
