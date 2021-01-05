@@ -40,11 +40,13 @@
     state: directory
     path: "{{ monitoring_promtail_config_dir }}"
     owner: "{{ monitoring_user_name }}"
+  when: monitoring_promtail_enabled
 
 - name: Render promtail configuration template.
   template:
     src: promtail-config-base.j2
     dest: "{{ monitoring_promtail_config_dir }}/{{ monitoring_promtail_config_filename }}"
+  when: monitoring_promtail_enabled
 
 - name: Bring up the containers
   command: docker-compose up -d # noqa: 304

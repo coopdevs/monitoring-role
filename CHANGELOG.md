@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Execute the Promtail tasks only if Promtail is enabled. [#10]
 ## [v0.3.0] - 2020-01-21
 ### Added
 - Add Promtail "module" for odoo-role
