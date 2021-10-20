@@ -20,6 +20,7 @@ galaxy_info:
     - loki
     - node_exporter
     - promtail
+    - postgresql_exporter
 
 # Duplicated in molecule/default/requirements.yml beacuse of molecule inhabilities
 # List your role dependencies here, one per line.
