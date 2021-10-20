@@ -4,6 +4,7 @@ An Ansible role for maintaining monitoring tools of the Grafana ecosystem.
 
 Uses docker to install Prometheus and Loki exporters:
 * `node_exporter`: prometheus exporter that collects general data about the state of a host.
+* `postgresql_exporter`: prometheus exporter that monitors the state of Postgreql server
 * `promtail`: the main exporter for Loki, a logs server similar to Prometheus and compatible with Grafana.
 
 This role supports some applications with their default logging format:
@@ -23,6 +24,12 @@ monitoring_nexporter_port: 9100
 monitoring_nexporter_docker_bind: "127.0.0.1:127.0.0.1:9100"
 monitoring_nexporter_container_name: nexporter
 monitoring_nexporter_image_version: latest
+```
+
+**PostgresqlExporter**
+```yaml
+monitoring_postgres_exporter_enabled: true
+monitoring_postgres_exporter_pg_user: "{{ odoo_role_odoo_user }}"
 ```
 
 **Promtail**
@@ -59,6 +66,10 @@ monitoring_loki_key: "eyJrIjoiM2VlZmM2NmQ4ZTQ4ZmE3MDRmZDBmMGE0YzNlNTE1MzRjZDdjND
 monitoring_loki_hostname: "logs-somewhere.grafana.net"
 ```
 
+**PostgresqlExporter**
+```yaml
+monitoring_postgres_exporter_pg_password: "{{ odoo_role_odoo_password }}"
+```
 ### Example playbooks
 
 **Odoo with promtail**

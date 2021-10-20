@@ -33,3 +33,10 @@ services:
 #      timeout: 20s
     command: -config.file={{ monitoring_promtail_config_dir }}/{{ monitoring_promtail_config_filename }}
 {% endif %}
+{% if monitoring_postgres_exporter_enabled %}
+  postgres_exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter
+    network_mode: host
+    environment:
+      DATA_SOURCE_NAME: postgresql://{{ monitoring_postgres_exporter_pg_user }}:{{ monitoring_postgres_exporter_pg_password }}@localhost:5432/postgres?sslmode=disable
+{% endif %}

@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Added Postgresql Exporter
+
 ## [v0.3.1] - 2021-01-05
 ### Fixed
 - Execute the Promtail tasks only if Promtail is enabled. [#10]
