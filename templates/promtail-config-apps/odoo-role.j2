@@ -7,10 +7,11 @@
           # 2020-01-14 13:53:09,585 25306 INFO odoo odoo.addons.base.models.ir_cron: Job `Post process payment transactions` done.
           # 2020-01-14 13:53:22,578 25306 DEBUG ? odoo.service.server: cron0 polling for jobs
           # We exclude milliseconds on purpose because golang's bug https://github.com/golang/go/issues/6189 and odoo's inability to customize logging
-          expression: '^(?P<datetime>[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[^ ]+ (?P<process_id>[0-9]+) (?P<loglevel>[a-zA-Z]+) (?P<user>[^ ]+) (?P<module>[^:]+): (?P<message>.*)$'
+          expression: '^(?P<datetime>[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}),[^ ]+ (?P<process_id>[0-9]+) (?P<loglevel>[a-zA-Z]+) (?P<database>[^ ]+) (?P<module>[^:]+): (?P<message>.*)$'
       # Labels to export to Loki and to be indexed there.
       - labels:
           loglevel:
+          database:
       # Source label with datetime data and its golang's layout to parse it
       - timestamp:
           source: datetime
