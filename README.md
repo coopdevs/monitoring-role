@@ -29,7 +29,7 @@ monitoring_nexporter_image_version: latest
 **PostgresqlExporter**
 ```yaml
 monitoring_postgres_exporter_enabled: true
-monitoring_postgres_exporter_pg_user: "{{ odoo_role_odoo_user }}"
+monitoring_postgres_exporter_pg_user: "monitor_user"
 ```
 
 **Promtail**
@@ -68,7 +68,7 @@ monitoring_loki_hostname: "logs-somewhere.grafana.net"
 
 **PostgresqlExporter**
 ```yaml
-monitoring_postgres_exporter_pg_password: "{{ odoo_role_odoo_password }}"
+monitoring_postgres_exporter_pg_password: "3%hyZ&toNZ#Xn74"
 ```
 ### Example playbooks
 
