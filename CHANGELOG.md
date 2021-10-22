@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 - Removed references to Odoo in README.md [#13]
+- Escape dollar sign in pg exporter user password [#15]
 
 ## [v0.4.0] - 2021-10-20
 - Added Postgresql Exporter [#11]
