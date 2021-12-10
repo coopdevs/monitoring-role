@@ -14,7 +14,7 @@ monitoring_nexporter_container_name: nexporter
 monitoring_nexporter_image_version: latest
 
 # Promtail
-monitoring_promtail_enabled: true
+monitoring_promtail_enabled: false
 monitoring_promtail_host: 127.0.0.1
 monitoring_promtail_port: 9080
 monitoring_promtail_docker_bind: "{{ monitoring_promtail_host }}:{{ monitoring_promtail_port }}:{{ monitoring_promtail_port }}"
@@ -35,3 +35,6 @@ monitoring_promtail_modules_available:
 
 monitoring_promtail_config_dir: "/etc/promtail"
 monitoring_promtail_config_filename: "config.yml"
+
+# Postgresql
+monitoring_postgres_exporter_enabled: false
