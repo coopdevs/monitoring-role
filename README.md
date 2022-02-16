@@ -69,6 +69,7 @@ monitoring_loki_hostname: "logs-somewhere.grafana.net"
 **PostgresqlExporter**
 ```yaml
 monitoring_postgres_exporter_pg_password: "3%hyZ&toNZ#Xn74"
+monitoring_postgres_exporter_pg_port: "3456"
 ```
 ### Example playbooks
 
