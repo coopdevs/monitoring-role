@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [v0.4.3] - 2022-02-16
+### Added
+- Add var to configure the PG port [#18]
+
+## [v0.4.2] - 2021-12-10
+### Added
+- Add default value for psql flag and set promtail to false [#17]
+
 ## [v0.4.1] - 2021-10-22
 ### Fixed
 - Removed references to Odoo in README.md [#13]
