@@ -38,3 +38,4 @@ monitoring_promtail_config_filename: "config.yml"
 
 # Postgresql
 monitoring_postgres_exporter_enabled: false
+monitoring_postgres_exporter_pg_port: 5432

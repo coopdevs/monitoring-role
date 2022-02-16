@@ -38,5 +38,5 @@ services:
     image: quay.io/prometheuscommunity/postgres-exporter
     network_mode: host
     environment:
-      DATA_SOURCE_NAME: postgresql://{{ monitoring_postgres_exporter_pg_user }}:{{ monitoring_postgres_exporter_pg_password | replace('$','$$')}}@localhost:5432/postgres?sslmode=disable
+      DATA_SOURCE_NAME: postgresql://{{ monitoring_postgres_exporter_pg_user }}:{{ monitoring_postgres_exporter_pg_password | replace('$','$$')}}@localhost:{{ monitoring_postgres_exporter_pg_port }}/postgres?sslmode=disable
 {% endif %}
