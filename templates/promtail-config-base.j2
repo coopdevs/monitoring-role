@@ -7,7 +7,7 @@ positions:
   filename: /tmp/positions.yaml
 
 client:
-  url: https://{{ monitoring_loki_user }}:{{ monitoring_loki_key }}@{{ monitoring_loki_hostname }}/loki/api/v1/push
+  url: "https://{{ monitoring_loki_user }}:{{ monitoring_loki_key }}@{{ monitoring_loki_hostname }}/loki/api/v1/push"
 
 scrape_configs:
 {% for module in monitoring_promtail_modules_enabled %}
