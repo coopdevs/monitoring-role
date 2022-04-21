@@ -18,9 +18,9 @@ galaxy_info:
     - monitoring
     - prometheus
     - loki
-    - node_exporter
+    - nodeexporter
     - promtail
-    - postgresql_exporter
+    - postgresexporter
 
 # Duplicated in molecule/default/requirements.yml beacuse of molecule inhabilities
 # List your role dependencies here, one per line.

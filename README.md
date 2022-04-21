@@ -3,8 +3,8 @@
 An Ansible role for maintaining monitoring tools of the Grafana ecosystem.
 
 Uses docker to install Prometheus and Loki exporters:
-* `node_exporter`: prometheus exporter that collects general data about the state of a host.
-* `postgresql_exporter`: prometheus exporter that monitors the state of Postgreql server
+* `nodeexporter`: prometheus exporter that collects general data about the state of a host.
+* `postgresexporter`: prometheus exporter that monitors the state of Postgreql server
 * `promtail`: the main exporter for Loki, a logs server similar to Prometheus and compatible with Grafana.
 
 This role supports some applications with their default logging format:
