@@ -1,7 +1,7 @@
 ---
 
 - name: Install dependency packages
-  become: yes
+  become: true
   apt:
     pkg:
       - gpg
@@ -10,7 +10,7 @@
 # Adding this user to docker group can have security issues when docker
 # manages other containers too, but it's better than running docker from root.
 - name: User to execute the manage docker on behalf of monitoring
-  become: yes
+  become: true
   user:
     name: "{{ monitoring_user_name }}"
     state: present
@@ -50,7 +50,7 @@
 
 - name: Bring up the containers
   command: docker-compose up -d # noqa: 304
-  become: yes
+  become: true
   become_user: "{{ monitoring_user_name }}"
   args:
     chdir: "{{ monitoring_working_dir }}"

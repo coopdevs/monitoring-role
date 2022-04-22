@@ -5,7 +5,7 @@ galaxy_info:
   # Choose a valid license ID from https://spdx.org - some suggested licenses:
   license: GPL-3.0-or-later
 
-  min_ansible_version: 2.8
+  min_ansible_version: "2.8"
 
   # Provide a list of supported platforms, and for each platform a list of versions.
   platforms:
@@ -18,11 +18,11 @@ galaxy_info:
     - monitoring
     - prometheus
     - loki
-    - node_exporter
+    - nodeexporter
     - promtail
-    - postgresql_exporter
+    - postgresexporter
 
 # Duplicated in molecule/default/requirements.yml beacuse of molecule inhabilities
 # List your role dependencies here, one per line.
 dependencies:
-  - geerlingguy.docker
+  - role: "geerlingguy.docker"
