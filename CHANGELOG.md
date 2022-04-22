@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.4.4] - 2022-04-22
 Improve [backup monitoring](https://github.com/coopdevs/handbook/wiki/Backup-Monitoring) capabilities.
 ### Added
 - Update the promtail client endpoint. [#20]
@@ -13,6 +14,7 @@ Improve [backup monitoring](https://github.com/coopdevs/handbook/wiki/Backup-Mon
 ### Fixed
 - Change exporters tag names (they're now linter-compliant) [#20]
 - Other minor linter fixes. [#20]
+
 ## [v0.4.3] - 2022-02-16
 ### Added
 - Add var to configure the PG port [#18]
