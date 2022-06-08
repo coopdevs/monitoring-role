@@ -24,7 +24,7 @@ services:
     volumes:
       - {{ monitoring_promtail_config_dir }}:{{ monitoring_promtail_config_dir }}
 {% for module in monitoring_promtail_modules_enabled %}
-{% set log_path = monitoring_promtail_modules_available[module]["log_path"] %}
+{% set log_path = monitoring_promtail_modules_available[module]["log_path_folder"] %}
       - {{ log_path }}:{{ log_path }}:ro
 {% endfor %}
 #    healthcheck:
