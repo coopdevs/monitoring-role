@@ -26,8 +26,9 @@ monitoring_promtail_modules_enabled:
 monitoring_promtail_modules_available:
   backups:
     # Use backups-role var if available.
-    log_path: "{{ backups_role_cron_stdout_file | default('/var/log/cron.d/restic-std{err,out}.log') }}"
+    log_path: "{{ backups_role_cron_stdout_file | default('/var/log/cron.d/restic-std*.log') }}"
     template: "backups-role.j2"
+    log_path_folder: "{{ backups_role_cron_std_folder | default('/var/log/cron.d') }}"
   odoo:
     # Use odoo-role var if available.
     log_path: "{{ odoo_role_odoo_log_path | default('/var/log/odoo') }}/odoo.log"
