@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.4.5] - 2022-06-08
+Fix [backup monitoring](https://github.com/coopdevs/handbook/wiki/Backup-Monitoring)
+### Fixed
+- Promtail scrape config [#24](https://github.com/coopdevs/monitoring-role/pull/24/)
+
 ## [v0.4.4] - 2022-04-22
 Improve [backup monitoring](https://github.com/coopdevs/handbook/wiki/Backup-Monitoring) capabilities.
 ### Added
