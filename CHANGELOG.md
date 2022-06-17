@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.4.6] - 2022-06-17
+### Fixed
+- restart always postgres exporter + owner docker_compose monitor [#25](https://github.com/coopdevs/monitoring-role/pull/25/)
+
+
 ## [v0.4.5] - 2022-06-08
 Fix [backup monitoring](https://github.com/coopdevs/handbook/wiki/Backup-Monitoring)
 ### Fixed
