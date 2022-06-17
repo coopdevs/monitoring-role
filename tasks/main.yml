@@ -34,6 +34,7 @@
   template:
     src: monitoring-docker-compose.yml.j2
     dest: "{{ monitoring_working_dir }}/docker-compose.yml"
+    owner: "{{ monitoring_user_name }}"
 
 - name: Promtail config directory
   file:
