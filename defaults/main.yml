@@ -33,6 +33,7 @@ monitoring_promtail_modules_available:
     # Use odoo-role var if available.
     log_path: "{{ odoo_role_odoo_log_path | default('/var/log/odoo') }}/odoo.log"
     template: "odoo-role.j2"
+    log_path_folder: "{{ odoo_role_odoo_log_path | default('/var/log/odoo') }}"
 
 monitoring_promtail_config_dir: "/etc/promtail"
 monitoring_promtail_config_filename: "config.yml"
