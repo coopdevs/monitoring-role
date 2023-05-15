@@ -41,3 +41,12 @@ monitoring_promtail_config_filename: "config.yml"
 # Postgresql
 monitoring_postgres_exporter_enabled: false
 monitoring_postgres_exporter_pg_port: 5432
+
+# Users
+monitoring_users_enabled: true
+monitoring_users_host: 127.0.0.1
+monitoring_users_port: 9839
+monitoring_users_endpoint: "/"
+monitoring_users_prefix: "what"
+monitoring_users_with_timestamp: false
+monitoring_users_scrape_interval: 5000
