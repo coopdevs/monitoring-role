@@ -11,6 +11,8 @@ This role supports some applications with their default logging format:
 * [Odoo12](https://github.com/coopdevs/odoo-role)
 * [Coopdevs backups](https://github.com/coopdevs/backups-role/)
 
+Besides, it supports a [custom exporter](https://github.com/stfsy/prometheus-what-active-users-exporter) that exposes the active users in the system.
+
 ## Using this role
 
 ### Public variables
@@ -55,6 +57,17 @@ monitoring_promtail_modules_available:
 
 monitoring_promtail_config_dir: "/etc/promtail"
 monitoring_promtail_config_filename: "config.yml"
+```
+
+**Active users**
+```yaml
+monitoring_users_enabled: true
+monitoring_users_host: 127.0.0.1
+monitoring_users_port: 9839
+monitoring_users_endpoint: "/metrics"
+monitoring_users_prefix: "what"
+monitoring_users_with_timestamp: false
+monitoring_users_scrape_interval: 5000
 ```
 
 ### Secret variables
