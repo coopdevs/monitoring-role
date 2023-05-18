@@ -1,0 +1,21 @@
+[Unit]
+Description=Prometheus Active Users Exporter
+After=network.target
+
+[Service]
+ExecStart={{ monitoring_working_dir }}/prometheus-what-active-users-exporter \
+  --listen.host={{ monitoring_users_host }} \
+  --listen.port={{ monitoring_users_port }} \
+  --metrics.endpoint={{ monitoring_users_endpoint }} \
+  --metrics.prefix={{ monitoring_users_prefix }} \
+  --metrics.with-timestamp={{ monitoring_users_with_timestamp }} \
+  --scrape.interval={{ monitoring_users_scrape_interval }}
+Restart=always
+User={{ monitoring_user_name }}
+Group={{ monitoring_user_name }}
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=prometheus-active-users-exporter
+
+[Install]
+WantedBy=multi-user.target

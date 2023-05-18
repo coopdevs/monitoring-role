@@ -56,3 +56,40 @@
   args:
     chdir: "{{ monitoring_working_dir }}"
   changed_when: false
+
+- name: Monitor active users
+  block:
+    - name: Copy the installer script
+      copy:
+        dest: "{{ monitoring_working_dir }}/ssh-users.sh"
+        src:  "files/ssh-users.sh"
+        mode:  0744
+        owner: "{{ monitoring_user_name }}"
+
+    - name: Run the installer script
+      command: "{{ monitoring_working_dir }}/ssh-users.sh"
+      become: true
+      become_user: "{{ monitoring_user_name }}"
+      args:
+        chdir: "{{ monitoring_working_dir }}"
+      changed_when: false
+
+    - name: Enable execution of binary
+      file:
+        path: "{{ monitoring_working_dir }}/prometheus-what-active-users-exporter"
+        mode: 0755
+        owner: "{{ monitoring_user_name }}"
+    - name: Render the daemon
+      template:
+        src: prometheus-active-users.service.j2
+        dest: /etc/systemd/system/prometheus-active-users.service
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Enable the daemon
+      systemd:
+        name: prometheus-active-users.service
+        enabled: yes
+        daemon_reload: yes
+        state: started
