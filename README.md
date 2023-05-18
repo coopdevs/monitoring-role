@@ -10,6 +10,7 @@ Uses docker to install Prometheus and Loki exporters:
 This role supports some applications with their default logging format:
 * [Odoo12](https://github.com/coopdevs/odoo-role)
 * [Coopdevs backups](https://github.com/coopdevs/backups-role/)
+* [`auth.log`](templates/promtail-config-apps/auth.j2)
 
 Besides, it supports a [custom exporter](https://github.com/stfsy/prometheus-what-active-users-exporter) that exposes the active users in the system.
 
