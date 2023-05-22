@@ -1,0 +1,20 @@
+  - job_name: auth
+    pipeline_stages:
+    - regex:
+        expression: '^(?P<timestamp>\S+ \S+ \S+) (?P<host>\S+) (?P<program>[^\[]+)(\[(?P<processid>\d+)\])?: (?P<message>.*)'
+
+    - timestamp:
+        source: timestamp
+        format: 'Jan 2 15:04:05'
+        location: 'Europe/Madrid'
+    - labels:
+        program:
+    - output:
+        source: message
+    static_configs:
+      - targets:
+        - localhost
+        labels:
+        job: auth
+        instance: {{ inventory_hostname }}
+        __path__: {{ monitoring_promtail_modules_available["auth"]["log_path"] }}

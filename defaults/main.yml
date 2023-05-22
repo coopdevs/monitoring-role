@@ -23,6 +23,7 @@ monitoring_promtail_image_version: latest
 monitoring_promtail_modules_enabled:
   - "backups"
   - "odoo"
+  - "auth"
 monitoring_promtail_modules_available:
   backups:
     # Use backups-role var if available.
@@ -34,6 +35,10 @@ monitoring_promtail_modules_available:
     log_path: "{{ odoo_role_odoo_log_path | default('/var/log/odoo') }}/odoo.log"
     template: "odoo-role.j2"
     log_path_folder: "{{ odoo_role_odoo_log_path | default('/var/log/odoo') }}"
+  auth:
+    log_path: "/var/log/auth.log"
+    template: "auth.j2"
+    log_path_folder: "/var/log"
 
 monitoring_promtail_config_dir: "/etc/promtail"
 monitoring_promtail_config_filename: "config.yml"
