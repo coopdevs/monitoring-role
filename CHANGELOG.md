@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.6.0]  - 2023-05-22
 - Add promtail configuration for `auth.log` [#27](https://github.com/coopdevs/monitoring-role/issues/27)
 
 ## [v0.5.0]  - 2023-05-18
