@@ -50,7 +50,7 @@
   when: monitoring_promtail_enabled
 
 - name: Bring up the containers
-  command: docker-compose up -d # noqa: 304
+  command: docker compose up -d # noqa: 304
   become: true
   become_user: "{{ monitoring_user_name }}"
   args:
