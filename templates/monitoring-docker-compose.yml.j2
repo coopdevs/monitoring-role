@@ -43,3 +43,20 @@ services:
       DATA_SOURCE_USER: {{ monitoring_postgres_exporter_pg_user }}
       DATA_SOURCE_PASSWORD: {{ monitoring_postgres_exporter_pg_password | replace('$','$$')}}
 {% endif %}
+{% if monitoring_odoo_instance_api_enabled and monitoring_odoo_instance_api_runtime == "docker" %}
+  odoo_instance_api:
+    image: {{ monitoring_odoo_instance_api_image }}:{{ monitoring_odoo_instance_api_image_version }}
+    container_name: {{ monitoring_odoo_instance_api_container_name }}
+    restart: always
+    ports:
+      - {{ monitoring_odoo_instance_api_docker_bind }}
+{% if monitoring_odoo_instance_api_docker_odoo_venv_path or monitoring_odoo_instance_api_docker_odoo_conf_path %}
+    environment:
+{% if monitoring_odoo_instance_api_docker_odoo_venv_path %}
+      ODOO_VENV_PATH: {{ monitoring_odoo_instance_api_docker_odoo_venv_path }}
+{% endif %}
+{% if monitoring_odoo_instance_api_docker_odoo_conf_path %}
+      ODOO_CONF_PATH: {{ monitoring_odoo_instance_api_docker_odoo_conf_path }}
+{% endif %}
+{% endif %}
+{% endif %}

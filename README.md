@@ -14,6 +14,8 @@ This role supports some applications with their default logging format:
 
 Besides, it supports a [custom exporter](https://github.com/stfsy/prometheus-what-active-users-exporter) that exposes the active users in the system.
 
+It can also run [odoo-instance-api](https://pypi.org/project/odoo-instance-api/) as an on-demand diagnostics API (it is not a Prometheus exporter).
+
 ## Using this role
 
 ### Public variables
@@ -71,6 +73,33 @@ monitoring_users_with_timestamp: false
 monitoring_users_scrape_interval: 5000
 ```
 
+**Odoo Instance API**
+```yaml
+monitoring_odoo_instance_api_enabled: false
+monitoring_odoo_instance_api_runtime: "systemd" # "systemd" or "docker"
+monitoring_odoo_instance_api_host: 127.0.0.1
+monitoring_odoo_instance_api_port: 8000
+
+# Systemd runtime
+monitoring_odoo_instance_api_systemd_service_name: "odoo-instance-api"
+monitoring_odoo_instance_api_systemd_user: "monitor"
+monitoring_odoo_instance_api_systemd_group: "monitor"
+monitoring_odoo_instance_api_systemd_venv_path: "/home/monitor/odoo-instance-api-venv"
+monitoring_odoo_instance_api_package_name: "odoo-instance-api"
+monitoring_odoo_instance_api_package_version: ""
+monitoring_odoo_instance_api_log_level: "info"
+monitoring_odoo_instance_api_odoo_venv_path: "/home/odoo/pyenv/versions/odoo-16/bin/python"
+monitoring_odoo_instance_api_odoo_conf_path: "/etc/odoo/odoo.conf"
+
+# Docker runtime
+monitoring_odoo_instance_api_container_name: "odoo-instance-api"
+monitoring_odoo_instance_api_image: "git.coopdevs.org:5050/coopdevs/sysadmin/monitoring/odoo-instance-api"
+monitoring_odoo_instance_api_image_version: "latest"
+monitoring_odoo_instance_api_docker_bind: "127.0.0.1:8000:8000"
+monitoring_odoo_instance_api_docker_odoo_venv_path: "/home/odoo/pyenv/versions/odoo-16/bin/python"
+monitoring_odoo_instance_api_docker_odoo_conf_path: "/etc/odoo/odoo.conf"
+```
+
 ### Secret variables
 
 **Promtail**
@@ -119,6 +148,43 @@ monitoring_postgres_exporter_pg_port: "3456"
       vars:
         monitoring_nexporter_enabled: true
         monitoring_promtail_enabled: false
+```
+
+**Odoo Instance API with systemd runtime (PyPI install)**
+```yaml
+# playbooks/odoo-instance-api-systemd.yml
+---
+- name: Install Odoo Instance API with monitoring role
+  hosts: servers
+  become: yes
+  roles:
+    - role: coopdevs.monitoring_role
+      vars:
+        monitoring_odoo_instance_api_enabled: true
+        monitoring_odoo_instance_api_systemd_user: "{{ odoo_role_odoo_user }}"
+        monitoring_odoo_instance_api_runtime: "systemd"
+        monitoring_odoo_instance_api_host: "127.0.0.1"
+        monitoring_odoo_instance_api_port: 8000
+        monitoring_odoo_instance_api_odoo_venv_path: "/home/odoo/pyenv/versions/odoo-16/bin/python"
+        monitoring_odoo_instance_api_odoo_conf_path: "/etc/odoo/odoo.conf"
+```
+
+**Odoo Instance API with docker runtime**
+```yaml
+# playbooks/odoo-instance-api-docker.yml
+---
+- name: Install Odoo Instance API with docker runtime
+  hosts: servers
+  become: yes
+  roles:
+    - role: coopdevs.monitoring_role
+      vars:
+        monitoring_odoo_instance_api_enabled: true
+        monitoring_odoo_instance_api_runtime: "docker"
+        monitoring_odoo_instance_api_host: "127.0.0.1"
+        monitoring_odoo_instance_api_port: 8000
+        monitoring_odoo_instance_api_image: "git.coopdevs.org:5050/coopdevs/sysadmin/monitoring/odoo-instance-api"
+        monitoring_odoo_instance_api_image_version: "latest"
 ```
 
 ## Security

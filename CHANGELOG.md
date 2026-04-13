@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Add optional `odoo-instance-api` support with `systemd` (PyPI) and `docker` runtimes.
+- Add role variables to configure endpoint binding, runtime selection and Odoo environment paths.
+
 ## [v0.6.0]  - 2023-05-22
 - Add promtail configuration for `auth.log` [#27](https://github.com/coopdevs/monitoring-role/issues/27)
 
