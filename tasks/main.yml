@@ -90,6 +90,7 @@
   when:
     - monitoring_odoo_instance_api_enabled
     - monitoring_odoo_instance_api_runtime == "systemd"
+  tags: odoo_instance_api
 
 - name: Disable Odoo Instance API daemon when not using systemd runtime
   become: true
@@ -100,6 +101,7 @@
   failed_when: false
   when:
     - not monitoring_odoo_instance_api_enabled or monitoring_odoo_instance_api_runtime != "systemd"
+  tags: odoo_instance_api
 
 - name: Bring up the containers
   command: docker compose up -d # noqa: 304
