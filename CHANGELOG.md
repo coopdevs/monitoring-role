@@ -6,11 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+#### Feat
+
+- Add optional `odoo-instance-api` support with `systemd` (PyPI) and `docker` runtimes.
+- Add role variables to configure endpoint binding, runtime selection and Odoo environment paths.
+
+## [v0.8.0]  - 2026-06-22
+### Fixed
+- Remove dash from docker compose by @cesarlr in [#29](https://github.com/coopdevs/monitoring-role/issues/29)
+
+## [v0.7.0]  - 2025-10-09
+### Fixed
+- Fix postgresql exporter envvars to connect to a DB by @danypr92 in [#28](https://github.com/coopdevs/monitoring-role/issues/28)
+
 ## [v0.6.0]  - 2023-05-22
+### Feat
 - Add promtail configuration for `auth.log` [#27](https://github.com/coopdevs/monitoring-role/issues/27)
 
 ## [v0.5.0]  - 2023-05-18
-## Feat
+### Feat
 - Add new exporter for users [#26](https://github.com/coopdevs/monitoring-role/pull/26/)
 
 ## [v0.4.6] - 2022-06-17

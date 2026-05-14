@@ -49,6 +49,60 @@
     dest: "{{ monitoring_promtail_config_dir }}/{{ monitoring_promtail_config_filename }}"
   when: monitoring_promtail_enabled
 
+- name: Odoo Instance API in systemd runtime
+  block:
+    - name: Install dependency packages for Odoo Instance API
+      become: true
+      apt:
+        pkg:
+          - python3-venv
+
+    - name: Create virtual environment for Odoo Instance API
+      command: "python3 -m venv {{ monitoring_odoo_instance_api_systemd_venv_path }}"
+      become: true
+      become_user: "{{ monitoring_odoo_instance_api_systemd_user | default(monitoring_user_name, true) }}"
+      args:
+        creates: "{{ monitoring_odoo_instance_api_systemd_venv_path }}/bin/odoo-instance-api"
+
+    - name: Install Odoo Instance API package
+      pip:
+        name: "{{ monitoring_odoo_instance_api_package_name }}{{ monitoring_odoo_instance_api_package_version | ternary('==' ~ monitoring_odoo_instance_api_package_version, '') }}"
+        virtualenv: "{{ monitoring_odoo_instance_api_systemd_venv_path }}"
+        virtualenv_command: "python3 -m venv"
+      become: true
+      become_user: "{{ monitoring_odoo_instance_api_systemd_user | default(monitoring_user_name, true) }}"
+
+    - name: Render Odoo Instance API daemon
+      template:
+        src: odoo-instance-api.service.j2
+        dest: "/etc/systemd/system/{{ monitoring_odoo_instance_api_systemd_service_name }}.service"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Enable Odoo Instance API daemon
+      become: true
+      systemd:
+        name: "{{ monitoring_odoo_instance_api_systemd_service_name }}.service"
+        enabled: yes
+        daemon_reload: yes
+        state: started
+  when:
+    - monitoring_odoo_instance_api_enabled
+    - monitoring_odoo_instance_api_runtime == "systemd"
+  tags: odoo_instance_api
+
+- name: Disable Odoo Instance API daemon when not using systemd runtime
+  become: true
+  systemd:
+    name: "{{ monitoring_odoo_instance_api_systemd_service_name }}.service"
+    enabled: no
+    state: stopped
+  failed_when: false
+  when:
+    - not monitoring_odoo_instance_api_enabled or monitoring_odoo_instance_api_runtime != "systemd"
+  tags: odoo_instance_api
+
 - name: Bring up the containers
   command: docker compose up -d # noqa: 304
   become: true

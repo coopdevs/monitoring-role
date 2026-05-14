@@ -55,3 +55,28 @@ monitoring_users_endpoint: "/"
 monitoring_users_prefix: "what"
 monitoring_users_with_timestamp: false
 monitoring_users_scrape_interval: 5000
+
+# Odoo Instance API
+monitoring_odoo_instance_api_enabled: false
+monitoring_odoo_instance_api_runtime: "systemd"
+monitoring_odoo_instance_api_host: 127.0.0.1
+monitoring_odoo_instance_api_port: 8000
+
+# Odoo Instance API - Docker runtime
+monitoring_odoo_instance_api_container_name: "odoo-instance-api"
+monitoring_odoo_instance_api_image: "git.coopdevs.org:5050/coopdevs/sysadmin/monitoring/odoo-instance-api"
+monitoring_odoo_instance_api_image_version: "latest"
+monitoring_odoo_instance_api_docker_bind: "{{ monitoring_odoo_instance_api_host }}:{{ monitoring_odoo_instance_api_port }}:{{ monitoring_odoo_instance_api_port }}"
+monitoring_odoo_instance_api_docker_odoo_venv_path: "/home/odoo/pyenv/versions/odoo-16/bin/python"
+monitoring_odoo_instance_api_docker_odoo_conf_path: "/etc/odoo/odoo.conf"
+
+# Odoo Instance API - systemd runtime
+monitoring_odoo_instance_api_systemd_service_name: "odoo-instance-api"
+monitoring_odoo_instance_api_systemd_user: "{{ monitoring_user_name }}"
+monitoring_odoo_instance_api_systemd_group: "{{ monitoring_odoo_instance_api_systemd_user }}"
+monitoring_odoo_instance_api_systemd_venv_path: "/home/{{ monitoring_odoo_instance_api_systemd_user }}/odoo-instance-api-venv"
+monitoring_odoo_instance_api_package_name: "odoo-instance-api"
+monitoring_odoo_instance_api_package_version: ""
+monitoring_odoo_instance_api_log_level: "info"
+monitoring_odoo_instance_api_odoo_venv_path: "/home/odoo/pyenv/versions/odoo-16/bin/python"
+monitoring_odoo_instance_api_odoo_conf_path: "/etc/odoo/odoo.conf"

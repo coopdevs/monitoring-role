@@ -1,0 +1,24 @@
+[Unit]
+Description=Odoo Instance API
+After=network.target
+
+[Service]
+ExecStart={{ monitoring_odoo_instance_api_systemd_venv_path }}/bin/odoo-instance-api \
+  --host={{ monitoring_odoo_instance_api_host }} \
+  --port={{ monitoring_odoo_instance_api_port }} \
+  --log-level={{ monitoring_odoo_instance_api_log_level }}
+{% if monitoring_odoo_instance_api_odoo_venv_path %}
+Environment=ODOO_VENV_PATH={{ monitoring_odoo_instance_api_odoo_venv_path }}
+{% endif %}
+{% if monitoring_odoo_instance_api_odoo_conf_path %}
+Environment=ODOO_CONF_PATH={{ monitoring_odoo_instance_api_odoo_conf_path }}
+{% endif %}
+Restart=always
+User={{ monitoring_odoo_instance_api_systemd_user | default(monitoring_user_name, true) }}
+Group={{ monitoring_odoo_instance_api_systemd_group | default(monitoring_user_name, true) }}
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=odoo-instance-api
+
+[Install]
+WantedBy=multi-user.target
