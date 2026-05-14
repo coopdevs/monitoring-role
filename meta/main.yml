@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: monitoring_role
   author: Coopdevs
   description: Install Prometheus and Loki exporters to monitor your project instances
 
