@@ -1,4 +1,4 @@
-# Monitoring Role [![Ansible Role](https://img.shields.io/ansible/role/44192)](https://galaxy.ansible.com/coopdevs/monitoring_role)
+# Monitoring Role [![Ansible Galaxy](https://img.shields.io/badge/Ansible_Galaxy-coopdevs/monitoring__role-green?link=https%3A%2F%2Fgalaxy.ansible.com%2Fcoopdevs%2Fmonitoring_role)](https://galaxy.ansible.com/coopdevs/monitoring_role)
 
 An Ansible role for maintaining monitoring tools of the Grafana ecosystem.
 
