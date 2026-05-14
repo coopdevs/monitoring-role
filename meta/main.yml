@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: monitoring_role
   author: Coopdevs
-  description: Install Prometheus and Loki exporters to monitor your project instances
+  description: Install Prometheus and Loki exporters and other tools to monitor your project instances
 
   # Choose a valid license ID from https://spdx.org - some suggested licenses:
   license: GPL-3.0-or-later
@@ -13,6 +13,7 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - bionic
+    - jammy
 
   # List tags for your role here, one per line.
   galaxy_tags:
