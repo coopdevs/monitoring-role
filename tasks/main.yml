@@ -51,14 +51,30 @@
 
 - name: Odoo Instance API in systemd runtime
   block:
-    - name: Install dependency packages for Odoo Instance API
-      become: true
+    - name: Ensure software-properties-common is installed (required for PPAs)
       apt:
-        pkg:
-          - python3-venv
+        name: software-properties-common
+        state: present
+        update_cache: yes
+      become: true
+
+    - name: Add Deadsnakes PPA for specific Python versions
+      apt_repository:
+        repo: ppa:deadsnakes/ppa
+        state: present
+      become: true
+
+    - name: Ensure the required Python version and venv module are installed
+      apt:
+        name: 
+          - "{{ monitoring_odoo_instance_api_python_version }}"
+          - "{{ monitoring_odoo_instance_api_python_version }}-venv"
+        state: present
+        update_cache: yes
+      become: true
 
     - name: Create virtual environment for Odoo Instance API
-      command: "python3 -m venv {{ monitoring_odoo_instance_api_systemd_venv_path }}"
+      command: "{{ monitoring_odoo_instance_api_python_version }} -m venv {{ monitoring_odoo_instance_api_systemd_venv_path }}"
       become: true
       become_user: "{{ monitoring_odoo_instance_api_systemd_user | default(monitoring_user_name, true) }}"
       args:
