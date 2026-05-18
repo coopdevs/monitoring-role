@@ -51,40 +51,65 @@
 
 - name: Odoo Instance API in systemd runtime
   block:
-    - name: Ensure software-properties-common is installed (required for PPAs)
+    - name: Check if Python {{ monitoring_odoo_instance_api_python_version }} is already installed
+      shell: "command -v python{{ monitoring_odoo_instance_api_python_version }}"
+      register: python_check
+      failed_when: false
+      changed_when: false
+
+    - name: Define Python binary path (if found)
+      set_fact:
+        target_python_bin: "{{ python_check.stdout }}"
+      when: python_check.rc == 0
+
+    - name: Define Python binary path (if compilation is required)
+      set_fact:
+        target_python_bin: "/usr/local/bin/python{{ monitoring_odoo_instance_api_python_version }}"
+      when: python_check.rc != 0
+
+    - name: Install build dependencies for Python
       apt:
-        name: software-properties-common
+        name:
+          - build-essential
+          - libssl-dev
+          - libffi-dev
+          - zlib1g-dev
+          - libbz2-dev
+          - libreadline-dev
+          - libsqlite3-dev
+          - wget
         state: present
         update_cache: yes
       become: true
+      when: python_check.rc != 0
 
-    - name: Add Deadsnakes PPA for specific Python versions
-      apt_repository:
-        repo: ppa:deadsnakes/ppa
-        state: present
+    - name: Download and extract Python source
+      unarchive:
+        src: "https://www.python.org/ftp/python/{{ monitoring_odoo_instance_api_python_exact_version }}/Python-{{ monitoring_odoo_instance_api_python_exact_version }}.tgz"
+        dest: "/tmp"
+        remote_src: yes
       become: true
+      when: python_check.rc != 0
 
-    - name: Ensure the required Python version and venv module are installed
-      apt:
-        name: 
-          - "{{ monitoring_odoo_instance_api_python_version }}"
-          - "{{ monitoring_odoo_instance_api_python_version }}-venv"
-        state: present
-        update_cache: yes
+    - name: Compile and install Python (using altinstall to protect OS)
+      shell: "./configure --enable-optimizations && make altinstall"
+      args:
+        chdir: "/tmp/Python-{{ monitoring_odoo_instance_api_python_exact_version }}"
+        creates: "{{ target_python_bin }}"
       become: true
+      when: python_check.rc != 0
 
     - name: Create virtual environment for Odoo Instance API
-      command: "{{ monitoring_odoo_instance_api_python_version }} -m venv {{ monitoring_odoo_instance_api_systemd_venv_path }}"
+      command: "{{ target_python_bin }} -m venv {{ monitoring_odoo_instance_api_systemd_venv_path }}"
       become: true
       become_user: "{{ monitoring_odoo_instance_api_systemd_user | default(monitoring_user_name, true) }}"
       args:
-        creates: "{{ monitoring_odoo_instance_api_systemd_venv_path }}/bin/odoo-instance-api"
+        creates: "{{ monitoring_odoo_instance_api_systemd_venv_path }}/bin/python"
 
     - name: Install Odoo Instance API package
       pip:
         name: "{{ monitoring_odoo_instance_api_package_name }}{{ monitoring_odoo_instance_api_package_version | ternary('==' ~ monitoring_odoo_instance_api_package_version, '') }}"
         virtualenv: "{{ monitoring_odoo_instance_api_systemd_venv_path }}"
-        virtualenv_command: "python3 -m venv"
       become: true
       become_user: "{{ monitoring_odoo_instance_api_systemd_user | default(monitoring_user_name, true) }}"
 
