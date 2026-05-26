@@ -82,9 +82,9 @@ monitoring_odoo_instance_api_port: 8000
 
 # Systemd runtime
 monitoring_odoo_instance_api_systemd_service_name: "odoo-instance-api"
-monitoring_odoo_instance_api_systemd_user: "monitor"
-monitoring_odoo_instance_api_systemd_group: "monitor"
-monitoring_odoo_instance_api_systemd_venv_path: "/home/monitor/odoo-instance-api-venv"
+monitoring_odoo_instance_api_systemd_user: "{{ ODOO_USER_NAME | default(odoo_role_odoo_user | default(monitoring_user_name)) }}"
+monitoring_odoo_instance_api_systemd_group: "{{ monitoring_odoo_instance_api_systemd_user }}"
+monitoring_odoo_instance_api_systemd_venv_path: "/home/{{ monitoring_odoo_instance_api_systemd_user }}/odoo-instance-api-venv"
 monitoring_odoo_instance_api_package_name: "odoo-instance-api"
 monitoring_odoo_instance_api_package_version: ""
 monitoring_odoo_instance_api_log_level: "info"

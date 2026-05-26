@@ -72,7 +72,7 @@ monitoring_odoo_instance_api_docker_odoo_conf_path: "/etc/odoo/odoo.conf"
 
 # Odoo Instance API - systemd runtime
 monitoring_odoo_instance_api_systemd_service_name: "odoo-instance-api"
-monitoring_odoo_instance_api_systemd_user: "{{ monitoring_user_name }}"
+monitoring_odoo_instance_api_systemd_user: "{{ ODOO_USER_NAME | default(odoo_role_odoo_user | default(monitoring_user_name)) }}"
 monitoring_odoo_instance_api_systemd_group: "{{ monitoring_odoo_instance_api_systemd_user }}"
 monitoring_odoo_instance_api_python_version: "3.10"
 monitoring_odoo_instance_api_python_exact_version: "3.10.14"
